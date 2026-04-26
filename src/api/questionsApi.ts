@@ -1,6 +1,8 @@
+import { BASE_URL } from "./api";
+
 export const getQuestions = async () => {
     try {
-        const response = await fetch('https://api.yeatwork.ru/api#/questions/QuestionController_getPublicQuestions');
+        const response = await fetch(`${BASE_URL}/questions/public-questions`);
         if (!response.ok) {
             throw new Error(`HTTP ошибка! Код: ${response.status}`);
         }
