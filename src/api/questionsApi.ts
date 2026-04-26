@@ -1,14 +1,18 @@
 import { BASE_URL } from "./api";
+import type { Question } from "../types/questionType";
 
-export const getQuestions = async () => {
-    try {
-        const response = await fetch(`${BASE_URL}/questions/public-questions`);
-        if (!response.ok) {
-            throw new Error(`HTTP ошибка! Код: ${response.status}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.error('Ошибка при загрузке вопросов:', error);
-        throw error;
+type GetQuestionsResponse = {
+    data: Question[];
+};
+
+export const getQuestions = async (): Promise<Question[]> => {
+    const response = await fetch(`${BASE_URL}/questions/public-questions`);
+
+    if (!response.ok) {
+        throw new Error(`HTTP ошибка! Код: ${response.status}`);
     }
+
+    const result: GetQuestionsResponse = await response.json();
+
+    return result.data;
 };
