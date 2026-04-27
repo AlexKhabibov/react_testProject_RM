@@ -16,7 +16,8 @@ function QuestionsList() {
             {questions.map((question) => (
                 <QuestionCard
                     key={question.id}
-                    question={question} title={""} shortAnswer={""} complexity={0} rate={0}                />
+                    question={question}
+                />
             ))}
         </div>
     )

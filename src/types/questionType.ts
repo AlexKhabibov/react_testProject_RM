@@ -8,9 +8,5 @@ export type Question = {
 }
 
 export type Props = {
-    title: string
-    shortAnswer: string
-    complexity: number
-    rate: number
     question: Question
 }
