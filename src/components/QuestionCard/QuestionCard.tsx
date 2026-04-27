@@ -1,9 +1,9 @@
 import { useState } from "react";
 import DOMPurify from "dompurify";
 import styles from "./QuestionCard.module.css";
-import type { Props } from "../../types/questionType";
+import type { QuestionCardProps } from "../../types/questionType";
 
-function QuestionCard({ question }: Props) {
+function QuestionCard({ question }: QuestionCardProps) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (

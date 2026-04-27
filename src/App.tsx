@@ -1,5 +1,5 @@
 import Header from './components/Header/Header'
-import QuestionsList from './components/QuestionsList.tsx/QuestionsList'
+import QuestionsList from './components/QuestionsList/QuestionsList'
 import './styles/global.css'
 
 function App() {

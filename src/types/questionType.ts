@@ -7,6 +7,6 @@ export type Question = {
     rate: number
 }
 
-export type Props = {
+export type QuestionCardProps = {
     question: Question
 }

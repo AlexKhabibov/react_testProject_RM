@@ -15,7 +15,6 @@ function QuestionsList() {
         <div className={styles.list}>
             {questions.map((question) => (
                 <QuestionCard
-                    key={question.id}
                     question={question}
                 />
             ))}
