@@ -4,7 +4,7 @@ import type { Question } from "../../types/questionType";
 import { getQuestions } from "../../api/questionsApi";
 
 function QuestionCard() {
-    const [open, setOpen] = useState(false)
+    const [openId, setOpenId] = useState<null | number>(null)
     const [questions, setQuestions] = useState<Question[]>([])
 
     useEffect(() => {
@@ -15,30 +15,40 @@ function QuestionCard() {
         <div>
             {questions.map((question) => (
                 <div key={question.id} className={styles.card}>
-                    <div className={styles.header}>
+
+                    <button
+                        className={styles.header}
+                        onClick={() =>
+                            setOpenId(
+                                openId === question.id
+                                    ? null
+                                    : question.id
+                            )
+                        }
+                    >
                         <h3 className={styles.title}>
                             {question.title}
                         </h3>
 
-                        <div className={styles.meta}>
-                            <span>⭐ {question.rate}</span>
-                            <span>⚡ {question.complexity}/10</span>
-                        </div>
-                    </div>
-
-                    <p className={styles.short}>
-                        {question.shortAnswer}
-                    </p>
-
-                    <button
-                        className={styles.button}
-                    >
-                        Показать ответ
+                        <span>
+                            {openId === question.id ? '▲' : '▼'}
+                        </span>
                     </button>
 
-                    <div className={styles.answer}>
-                        {question.longAnswer}
-                    </div>
+                    {openId === question.id && (
+                        <div className={styles.content}>
+
+                            <div className={styles.meta}>
+                                <span>⭐ {question.rate}</span>
+                                <span>⚡ {question.complexity}/10</span>
+                            </div>
+
+                            <p className={styles.answer}>
+                                {question.longAnswer}
+                            </p>
+
+                        </div>
+                    )}
                 </div>
             ))}
         </div>
