@@ -12,4 +12,5 @@ export type Props = {
     shortAnswer: string
     complexity: number
     rate: number
+    question: Question
 }
