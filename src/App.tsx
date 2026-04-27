@@ -1,7 +1,6 @@
 import Footer from './components/Footer/Footer'
 import Header from './components/Header/Header'
-import QuestionsList from './components/QuestionsList/QuestionsList'
-// import Sidebar from './components/Sidebar/Sidebar'
+import QuestionsParentComp from './components/QuestionComp/QuestionsParentComp'
 import './styles/global.css'
 
 function App() {
@@ -9,9 +8,8 @@ function App() {
   return (
     <div className='container'>
       <Header />
-      <QuestionsList />
+      <QuestionsParentComp />
       <Footer />
-      {/* <Sidebar /> */}
     </div>
   )
 }

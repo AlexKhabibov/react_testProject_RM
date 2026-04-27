@@ -1,4 +1,4 @@
-import type { SearchQuestionsProps } from "../../../types/questionType";
+import type { SearchQuestionsProps } from "../../../../types/questionType";
 
 function SearchQuestions({ search, setSearch }: SearchQuestionsProps) {
 
