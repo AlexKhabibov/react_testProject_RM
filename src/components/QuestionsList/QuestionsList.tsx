@@ -6,10 +6,18 @@ import styles from './QuestionsList.module.css'
 
 function QuestionsList() {
     const [questions, setQuestions] = useState<Question[]>([])
+    const [isLoading, setIsLoading] = useState<boolean>(true)
 
     useEffect(() => {
-        getQuestions().then(setQuestions)
+        getQuestions()
+            .then(setQuestions)
+            .finally(() => setIsLoading(false))
     }, [])
+
+
+    if (isLoading) {
+        return <p>Загрузка...</p>;
+    }
 
     return (
         <div className={styles.list}>
