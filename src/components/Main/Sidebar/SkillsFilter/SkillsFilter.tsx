@@ -1,19 +1,40 @@
+import type { SkillSFilterProps } from "../../../../types/type";
 import styles from "./SkillsFilter.module.css";
 
-function SkillsFilter() {
+
+
+function SkillsFilter({
+    skills,
+    selectedSkills,
+    setSelectedSkills
+}: SkillSFilterProps) {
+    const toggleSkill = (id: number) => {
+        setSelectedSkills(prev =>
+            prev.includes(id)
+                ? prev.filter(s => s !== id)
+                : [...prev, id]
+        );
+    };
+
     return (
         <div className={styles.section}>
 
-            <h3 className={styles.title}>
-                Навыки
-            </h3>
+            <h3 className={styles.title}>Навыки</h3>
 
             <div className={styles.tags}>
-                <button>React</button>
-                <button>TypeScript</button>
-                <button>Node.js</button>
-                <button>Docker</button>
-                <button>PostgreSQL</button>
+                {skills.map(skill => (
+                    <button
+                        key={skill.id}
+                        onClick={() => toggleSkill(skill.id)}
+                        className={
+                            selectedSkills.includes(skill.id)
+                                ? styles.active
+                                : ""
+                        }
+                    >
+                        {skill.title}
+                    </button>
+                ))}
             </div>
 
         </div>

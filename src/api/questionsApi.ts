@@ -1,5 +1,5 @@
 import { BASE_URL } from "./api";
-import type { Question } from "../types/questionType";
+import type { Question } from "../types/type";
 
 type GetQuestionsResponse = {
     data: Question[];

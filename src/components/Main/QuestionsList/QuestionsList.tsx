@@ -1,37 +1,18 @@
-import { useEffect, useState } from "react";
-import { getQuestions } from "../../../api/questionsApi";
+import type { Question } from "../../../types/type";
 import QuestionCard from "../../QuestionCard/QuestionCard";
-import styles from './QuestionsList.module.css'
-import type { Question } from "../../../types/questionType";
+import styles from "./QuestionsList.module.css";
 
-function QuestionsList({ search }: { search: string }) {
-    const [questions, setQuestions] = useState<Question[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+type Props = {
+    questions: Question[];
+};
 
-    useEffect(() => {
-        getQuestions()
-            .then(setQuestions)
-            .finally(() => setIsLoading(false));
-    }, []);
-
-    if (isLoading) {
-        return (
-            <div className={styles.loader}>
-                <div className={styles.spinner}></div>
-            </div>
-        );
-    }
-
-    const filtered = questions.filter(q =>
-        q.title.toLowerCase().includes(search.toLowerCase())
-    );
-
+function QuestionsList({ questions }: Props) {
     return (
         <div className={styles.list}>
-            {filtered.map((question) => (
+            {questions.map(q => (
                 <QuestionCard
-                    key={question.id}
-                    question={question}
+                    key={q.id}
+                    question={q}
                 />
             ))}
         </div>

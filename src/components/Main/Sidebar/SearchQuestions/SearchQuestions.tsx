@@ -1,5 +1,5 @@
 import styles from "./SearchQuestions.module.css";
-import type { SearchQuestionsProps } from "../../../../types/questionType";
+import type { SearchQuestionsProps } from "../../../../types/type";
 
 function SearchQuestions({ search, setSearch }: SearchQuestionsProps) {
     return (
