@@ -1,0 +1,35 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.title {
+    margin: 0;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    color: #111827;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 14px;
+    color: #374151;
+
+    cursor: pointer;
+}
+
+.checkbox input {
+    cursor: pointer;
+}
