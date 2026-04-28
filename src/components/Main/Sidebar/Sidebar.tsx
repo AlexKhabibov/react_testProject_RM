@@ -7,13 +7,18 @@ import RatingFilter from "./RatingFilter/RatingFilter";
 import StatusFilter from "./StatusFilter/StatusFilter";
 import type { SidebarProps } from "../../../types/type";
 
-
 function Sidebar({
     search,
     setSearch,
+
     skills,
     selectedSkills,
-    setSelectedSkills
+    setSelectedSkills,
+
+    specializations,
+    selectedSpecializations,
+    setSelectedSpecializations
+
 }: SidebarProps) {
     return (
         <aside className={styles.sidebar}>
@@ -23,7 +28,11 @@ function Sidebar({
                 setSearch={setSearch}
             />
 
-            <SpecializationFilter />
+            <SpecializationFilter
+                specializations={specializations}
+                selectedSpecializations={selectedSpecializations}
+                setSelectedSpecializations={setSelectedSpecializations}
+            />
 
             <SkillsFilter
                 skills={skills}
@@ -32,7 +41,9 @@ function Sidebar({
             />
 
             <ComplexityFilter />
+
             <RatingFilter />
+
             <StatusFilter />
 
         </aside>

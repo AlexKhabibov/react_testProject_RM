@@ -5,7 +5,8 @@ export type Question = {
     title: string;
     rate: number;
     complexity: number;
-    skills: number[]; // 👈 IDs навыков
+    skills: number[]; // skill IDs
+    specializations: number[]; // 👈 ДОБАВИТЬ ЭТО
 };
 
 export type QuestionCardProps = {
@@ -25,10 +26,19 @@ export type SkillsProps = {
 
 export type SidebarProps = {
     search: string;
-    setSearch: (v: string) => void;
+    setSearch: React.Dispatch<React.SetStateAction<string>>;
+
     skills: Skill[];
     selectedSkills: number[];
-    setSelectedSkills: Dispatch<SetStateAction<number[]>>;
+    setSelectedSkills: React.Dispatch<
+        React.SetStateAction<number[]>
+    >;
+
+    specializations: Specialization[];
+    selectedSpecializations: number[];
+    setSelectedSpecializations: React.Dispatch<
+        React.SetStateAction<number[]>
+    >;
 };
 
 export type Specialization = {
@@ -39,6 +49,14 @@ export type Specialization = {
     imageSrc: string | null;
     createdAt: string;
     updatedAt: string;
+};
+
+export type SpecializationFilterProps = {
+    specializations: Specialization[];
+    selectedSpecializations: number[];
+    setSelectedSpecializations: React.Dispatch<
+        React.SetStateAction<number[]>
+    >;
 };
 
 export type Skill = {
