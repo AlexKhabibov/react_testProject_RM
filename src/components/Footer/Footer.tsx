@@ -5,44 +5,50 @@ function Footer() {
     return (
         <footer className={styles.footer}>
 
-            <div className={styles.top}>
-                <h2 className={styles.logo}>
-                    Yeahub
-                </h2>
+            <div className={styles.container}>
 
-                <p className={styles.title}>
-                    Выбери, каким будет IT завтра, вместе с нами
-                </p>
 
-                <p className={styles.description}>
-                    YeaHub — это полностью открытый проект,
-                    призванный объединить и улучшить IT-сферу.
-                </p>
-            </div>
+                <div className={styles.top}>
+                    <h2 className={styles.logo}>
+                        Yeahub
+                    </h2>
 
-            <div className={styles.divider} />
+                    <p className={styles.title}>
+                        Выбери, каким будет IT завтра, вместе с нами
+                    </p>
 
-            <div className={styles.bottom}>
-
-                <div className={styles.links}>
-                    <span>© 2024 YeaHub</span>
-
-                    <a href="#">
-                        Документы
-                    </a>
+                    <p className={styles.description}>
+                        YeaHub — это полностью открытый проект,
+                        призванный объединить и улучшить IT-сферу.
+                    </p>
                 </div>
 
-                <div className={styles.socials}>
-                    <span>
-                        Ищите нас в соцсетях
-                    </span>
+                <div className={styles.divider} />
 
-                    <div className={styles.icons}>
-                        <a href="#"><FaTelegram /></a>
-                        <a href="#"><FaYoutube /></a>
-                        <a href="#"><FaGithub /></a>
+                <div className={styles.bottom}>
+
+                    <div className={styles.links}>
+                        <span>© 2024 YeaHub</span>
+
+                        <a href="#">
+                            Документы
+                        </a>
                     </div>
+
+                    <div className={styles.socials}>
+                        <span>
+                            Ищите нас в соцсетях
+                        </span>
+
+                        <div className={styles.icons}>
+                            <a href="#"><FaTelegram /></a>
+                            <a href="#"><FaYoutube /></a>
+                            <a href="#"><FaGithub /></a>
+                        </div>
+                    </div>
+
                 </div>
+
 
             </div>
 
