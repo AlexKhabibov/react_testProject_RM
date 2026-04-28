@@ -49,7 +49,7 @@ export type Skill = {
     createdAt: string;
     updatedAt: string;
     createdBy: null | unknown;
-    specializations: any[];
+    specializations: Specialization[];
 };
 
 export type GetSkillsResponse = {

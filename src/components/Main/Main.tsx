@@ -40,7 +40,9 @@ function Main() {
     }, [questions, search, selectedSkills]);
 
     if (isLoading) {
-        return <p>Загрузка...</p>;
+        return <div className={styles.loader}>
+            <div className={styles.spinner}></div>
+        </div>
     }
 
     return (
