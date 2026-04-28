@@ -1,7 +1,7 @@
 import { useState } from "react";
 import QuestionsList from "./QuestionsList/QuestionsList";
 import Sidebar from "./Sidebar/Sidebar";
-import styles from './QuestionsParentComp.module.css'
+import styles from './Main.module.css'
 
 function QuestionsParentComp() {
     const [search, setSearch] = useState("");

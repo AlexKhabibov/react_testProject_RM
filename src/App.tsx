@@ -1,6 +1,6 @@
 import Footer from './components/Footer/Footer'
 import Header from './components/Header/Header'
-import QuestionsParentComp from './components/QuestionComp/QuestionsParentComp'
+import QuestionsParentComp from './components/Main/Main'
 import './styles/global.css'
 
 function App() {

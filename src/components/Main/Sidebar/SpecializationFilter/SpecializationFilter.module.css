@@ -6,10 +6,8 @@
 
 .title {
     margin: 0;
-
     font-size: 15px;
     font-weight: 600;
-
     color: #111827;
 }
 
@@ -21,22 +19,21 @@
 
 .tags button {
     padding: 8px 12px;
-
-    border: 1px solid #d1d5db;
+    border: 1px solid #e5e7eb;
     border-radius: 999px;
-
-    background: #f9fafb;
-
+    background: #ffffff;
     font-size: 13px;
-
+    color: #111827;
     cursor: pointer;
-
-    transition: all 0.2s ease;
+    transition: 0.2s ease;
 }
 
 .tags button:hover {
-    background: #111827;
-    border-color: #111827;
+    border-color: #7b61ff;
+    color: #7b61ff;
+    background: rgba(123, 97, 255, 0.05);
+}
 
-    color: white;
+.tags button:active {
+    transform: scale(0.97);
 }
