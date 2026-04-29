@@ -1,12 +1,10 @@
-import type { Question } from "../../../types/type";
+import type { QuestionCardListProps } from "../../../types/type";
 import QuestionCard from "../../QuestionCard/QuestionCard";
 import styles from "./QuestionsList.module.css";
 
-type Props = {
-    questions: Question[];
-};
 
-function QuestionsList({ questions }: Props) {
+
+function QuestionsList({ questions }: QuestionCardListProps) {
     return (
         <div className={styles.list}>
             {questions.map(q => (

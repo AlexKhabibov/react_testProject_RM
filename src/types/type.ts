@@ -37,6 +37,10 @@ export type QuestionCardProps = {
     question: Question
 }
 
+export type QuestionCardListProps = {
+    questions: Question[];
+};
+
 export type SearchQuestionsProps = {
     search: string;
     setSearch: (value: string) => void;
