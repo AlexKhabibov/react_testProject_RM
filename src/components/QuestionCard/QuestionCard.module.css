@@ -11,16 +11,44 @@
 .header {
     width: 100%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-start;
+    /* 🔥 ключ */
+    align-items: flex-start;
+    gap: 12px;
+
     background: none;
     border: none;
     cursor: pointer;
+
+    text-align: left;
+}
+
+.header span {
+    margin-left: auto;
+    /* 🔥 выталкивает вправо */
+    flex-shrink: 0;
 }
 
 .title {
     font-size: 18px;
     font-weight: 600;
+
+    margin: 0;
+
+    flex: 1;
+    min-width: 0;
+
+    text-align: left;
+    /* 🔥 фикс */
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    line-height: 1.3;
 }
 
 .meta {
