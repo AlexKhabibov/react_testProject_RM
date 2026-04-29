@@ -1,5 +1,5 @@
+import { BASE_URL } from "./baseApi";
 import type { Specialization } from "../types/type";
-import { BASE_URL } from "./api";
 
 type GetSpecializationsResponse = {
     data: Specialization[];

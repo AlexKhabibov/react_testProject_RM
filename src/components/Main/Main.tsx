@@ -1,99 +1,116 @@
 import { useEffect, useMemo, useState } from "react";
+
 import QuestionsList from "./QuestionsList/QuestionsList";
 import Sidebar from "./Sidebar/Sidebar";
 
-import { getQuestions } from "../../api/questionsApi";
-import { getSkills } from "../../api/skills";
-import { getSpecializations } from "../../api/specializations";
+import { getAllQuestions, getQuestions } from "../../api/questionsApi";
+import { getSkills } from "../../api/skillsApi";
+import { getSpecializations } from "../../api/specializationsApi";
 
 import styles from "./Main.module.css";
 
-import type {
-    Question,
-    Skill,
-    Specialization
-} from "../../types/type";
+import type { Question, Skill, Specialization } from "../../types/type";
 
 function Main() {
     const [questions, setQuestions] = useState<Question[]>([]);
+    const [allQuestions, setAllQuestions] = useState<Question[]>([]);
+
     const [skills, setSkills] = useState<Skill[]>([]);
     const [specializations, setSpecializations] = useState<Specialization[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [search, setSearch] = useState("");
-    const [selectedSkills, setSelectedSkills] = useState<number[]>([]);
-    const [selectedSpecializations, setSelectedSpecializations] = useState<number[]>([]);
 
+    const [search, setSearch] = useState("");
+
+    const [page, setPage] = useState(1);
+    const [limit] = useState(10);
+    const [total, setTotal] = useState(0);
+
+    const [isLoading, setIsLoading] = useState(true);
+    const [isAllLoading, setIsAllLoading] = useState(true);
+
+    // ======================
+    // справочники
+    // ======================
     useEffect(() => {
         Promise.all([
-            getQuestions(),
             getSkills(),
             getSpecializations()
-        ])
-            .then(([questionsData, skillsData, specData]) => {
-                setQuestions(questionsData);
-                setSkills(skillsData);
-                setSpecializations(specData);
-            })
-            .finally(() => setIsLoading(false));
+        ]).then(([skillsData, specData]) => {
+            setSkills(skillsData);
+            setSpecializations(specData);
+        });
     }, []);
 
-    const filteredQuestions = useMemo(() => {
-        return questions.filter(q => {
+    // ======================
+    // пагинация
+    // ======================
+    useEffect(() => {
+        const load = async () => {
+            setIsLoading(true);
 
-            const matchesSearch =
-                q.title
-                    .toLowerCase()
-                    .includes(search.toLowerCase());
+            const res = await getQuestions(page, limit);
 
-            const matchesSkills =
-                selectedSkills.length === 0 ||
-                selectedSkills.some(skillId => {
+            setQuestions(res.data);
+            setTotal(res.total);
 
-                    const skill = skills.find(
-                        s => s.id === skillId
-                    );
+            setIsLoading(false);
+        };
 
-                    if (!skill) return false;
+        load();
+    }, [page, limit]);
 
-                    return q.keywords?.some(keyword =>
-                        skill.title
-                            .toLowerCase()
-                            .includes(keyword.toLowerCase())
-                    );
-                });
+    // ======================
+    // ВСЕ вопросы (для поиска)
+    // ======================
+    useEffect(() => {
+        const loadAll = async () => {
+            setIsAllLoading(true);
 
-            const matchesSpecializations =
-                selectedSpecializations.length === 0 ||
-                selectedSpecializations.some(specId => {
+            const res = await getAllQuestions();
+            setAllQuestions(res);
 
-                    const spec = specializations.find(
-                        s => s.id === specId
-                    );
+            setIsAllLoading(false);
+        };
 
-                    if (!spec) return false;
+        loadAll();
+    }, []);
 
-                    return q.keywords?.some(keyword =>
-                        spec.title
-                            .toLowerCase()
-                            .includes(keyword.toLowerCase())
-                    );
-                });
+    // ======================
+    // ПОИСК + ПАГИНАЦИЯ
+    // ======================
+    const displayedQuestions = useMemo(() => {
+        const query = search.trim().toLowerCase();
 
-            return (
-                matchesSearch &&
-                matchesSkills &&
-                matchesSpecializations
-            );
-        });
-    }, [
-        questions,
-        search,
-        selectedSkills,
-        selectedSpecializations,
-        skills,
-        specializations
-    ]);
+        // 🔍 поиск по всем вопросам
+        if (query && !isAllLoading) {
+            return allQuestions.filter(q => {
+                const titleMatch = q.title.toLowerCase().includes(query);
 
+                const keywordMatch =
+                    q.keywords?.some(k =>
+                        k.toLowerCase().includes(query)
+                    ) ?? false;
+
+                return titleMatch || keywordMatch;
+            });
+        }
+
+        // 📦 обычная пагинация
+        return questions;
+    }, [search, allQuestions, questions, isAllLoading]);
+
+    // ======================
+    // search handler
+    // ======================
+    const handleSearchChange = (value: string) => {
+        setSearch(value);
+        setPage(1);
+    };
+
+    const totalPages = Math.ceil(total / limit);
+
+    // ======================
+    // LOADER
+    // ======================
     if (isLoading) {
         return (
             <div className={styles.loader}>
@@ -105,18 +122,49 @@ function Main() {
     return (
         <div className={styles.layout}>
 
-            <QuestionsList questions={filteredQuestions} />
+            {/* LIST */}
+            <QuestionsList questions={displayedQuestions} />
 
+            {/* SIDEBAR */}
             <Sidebar
                 search={search}
-                setSearch={setSearch}
+                setSearch={handleSearchChange}
+
                 skills={skills}
-                selectedSkills={selectedSkills}
-                setSelectedSkills={setSelectedSkills}
+                selectedSkills={[]}
+                setSelectedSkills={() => {}}
+
                 specializations={specializations}
-                selectedSpecializations={selectedSpecializations}
-                setSelectedSpecializations={setSelectedSpecializations}
+                selectedSpecializations={[]}
+                setSelectedSpecializations={() => {}}
             />
+
+            {/* PAGINATION (только если нет поиска) */}
+            {!search && (
+                <div className={styles.pagination}>
+
+                    <button
+                        onClick={() => setPage(p => Math.max(p - 1, 1))}
+                        disabled={page === 1}
+                    >
+                        Назад
+                    </button>
+
+                    <span>
+                        {page} / {totalPages || 1}
+                    </span>
+
+                    <button
+                        onClick={() =>
+                            setPage(p => Math.min(p + 1, totalPages))
+                        }
+                        disabled={page === totalPages}
+                    >
+                        Вперёд
+                    </button>
+
+                </div>
+            )}
 
         </div>
     );

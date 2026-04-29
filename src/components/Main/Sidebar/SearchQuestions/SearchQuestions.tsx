@@ -1,7 +1,11 @@
 import styles from "./SearchQuestions.module.css";
-import type { SearchQuestionsProps } from "../../../../types/type";
 
-function SearchQuestions({ search, setSearch }: SearchQuestionsProps) {
+type Props = {
+    search: string;
+    setSearch: (value: string) => void;
+};
+
+function SearchQuestions({ search, setSearch }: Props) {
     return (
         <input
             className={styles.input}
