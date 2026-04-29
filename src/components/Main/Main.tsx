@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import QuestionsList from "./QuestionsList/QuestionsList";
 import Sidebar from "./Sidebar/Sidebar";
+import Pagination from "./Pagination/Pagination";
 
 import { getAllQuestions, getQuestions } from "../../api/questionsApi";
 import { getSkills } from "../../api/skillsApi";
@@ -59,7 +60,7 @@ function Main() {
     }, [page, limit]);
 
     // ======================
-    // ВСЕ вопросы (для поиска)
+    // все вопросы (поиск)
     // ======================
     useEffect(() => {
         const loadAll = async () => {
@@ -75,12 +76,11 @@ function Main() {
     }, []);
 
     // ======================
-    // ПОИСК + ПАГИНАЦИЯ
+    // поиск + пагинация
     // ======================
     const displayedQuestions = useMemo(() => {
         const query = search.trim().toLowerCase();
 
-        // 🔍 поиск по всем вопросам
         if (query && !isAllLoading) {
             return allQuestions.filter(q => {
                 const titleMatch = q.title.toLowerCase().includes(query);
@@ -94,7 +94,6 @@ function Main() {
             });
         }
 
-        // 📦 обычная пагинация
         return questions;
     }, [search, allQuestions, questions, isAllLoading]);
 
@@ -106,10 +105,8 @@ function Main() {
         setPage(1);
     };
 
-    const totalPages = Math.ceil(total / limit);
-
     // ======================
-    // LOADER
+    // loader
     // ======================
     if (isLoading) {
         return (
@@ -122,48 +119,26 @@ function Main() {
     return (
         <div className={styles.layout}>
 
-            {/* LIST */}
             <QuestionsList questions={displayedQuestions} />
 
-            {/* SIDEBAR */}
             <Sidebar
                 search={search}
                 setSearch={handleSearchChange}
-
                 skills={skills}
                 selectedSkills={[]}
                 setSelectedSkills={() => {}}
-
                 specializations={specializations}
                 selectedSpecializations={[]}
                 setSelectedSpecializations={() => {}}
             />
 
-            {/* PAGINATION (только если нет поиска) */}
             {!search && (
-                <div className={styles.pagination}>
-
-                    <button
-                        onClick={() => setPage(p => Math.max(p - 1, 1))}
-                        disabled={page === 1}
-                    >
-                        Назад
-                    </button>
-
-                    <span>
-                        {page} / {totalPages || 1}
-                    </span>
-
-                    <button
-                        onClick={() =>
-                            setPage(p => Math.min(p + 1, totalPages))
-                        }
-                        disabled={page === totalPages}
-                    >
-                        Вперёд
-                    </button>
-
-                </div>
+                <Pagination
+                    page={page}
+                    setPage={setPage}
+                    total={total}
+                    limit={limit}
+                />
             )}
 
         </div>
