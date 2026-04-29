@@ -26,8 +26,21 @@ function QuestionCard({ question }: QuestionCardProps) {
                 <div className={styles.answer}>
 
                     <div className={styles.meta}>
-                        <span>⭐ {question.rate}</span>
-                        <span>⚡ {question.complexity}/10</span>
+                        <div className={styles.badge}>
+                            <span className={styles.badgeIcon}>Рейтинг</span>
+
+                            <span className={styles.badgeValue}>
+                                {question.rate}
+                            </span>
+                        </div>
+
+                        <div className={styles.badge}>
+                            <span className={styles.badgeIcon}>Сложность</span>
+
+                            <span className={styles.badgeValue}>
+                                {question.complexity}/10
+                            </span>
+                        </div>
                     </div>
 
                     <div
