@@ -29,7 +29,7 @@ function Main() {
     const [isAllLoading, setIsAllLoading] = useState(true);
 
     // ======================
-    // данные из апишки
+    // данные из апишек
     // ======================
     useEffect(() => {
         Promise.all([
