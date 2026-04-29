@@ -73,6 +73,13 @@ export type SkillSFilterProps = {
     setSelectedSkills: Dispatch<SetStateAction<number[]>>;
 };
 
+export type PaginationProps = {
+    page: number;
+    setPage: (p: number) => void;
+    total: number;
+    limit: number;
+};
+
 // Для связи по id (на будущее)
 export type QuestionWithRelations = Question & {
     skillIds: number[];

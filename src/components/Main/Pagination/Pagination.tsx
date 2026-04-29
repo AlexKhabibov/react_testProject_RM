@@ -1,13 +1,7 @@
+import type { PaginationProps } from "../../../types/type";
 import styles from "./Pagination.module.css";
 
-type Props = {
-    page: number;
-    setPage: (p: number) => void;
-    total: number;
-    limit: number;
-};
-
-function Pagination({ page, setPage, total, limit }: Props) {
+function Pagination({ page, setPage, total, limit }: PaginationProps) {
     const totalPages = Math.ceil(total / limit);
 
     const getPageNumbers = () => {
@@ -35,7 +29,6 @@ function Pagination({ page, setPage, total, limit }: Props) {
     return (
         <div className={styles.pagination}>
 
-            {/* ← */}
             <button
                 className={`${styles.pageButton} ${styles.arrow}`}
                 onClick={() => setPage(Math.max(page - 1, 1))}
@@ -44,7 +37,6 @@ function Pagination({ page, setPage, total, limit }: Props) {
                 ←
             </button>
 
-            {/* pages */}
             {getPageNumbers().map((p, i) =>
                 p === "..." ? (
                     <div key={i} className={styles.dots}>
@@ -63,7 +55,6 @@ function Pagination({ page, setPage, total, limit }: Props) {
                 )
             )}
 
-            {/* → */}
             <button
                 className={`${styles.pageButton} ${styles.arrow}`}
                 onClick={() =>

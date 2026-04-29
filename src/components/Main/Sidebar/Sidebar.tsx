@@ -15,6 +15,7 @@ function Sidebar({
     selectedSpecializations,
     setSelectedSpecializations
 }: SidebarProps) {
+    
     return (
         <aside className={styles.sidebar}>
 
