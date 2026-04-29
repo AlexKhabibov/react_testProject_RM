@@ -5,8 +5,7 @@ export type Question = {
     title: string;
     rate: number;
     complexity: number;
-    skills: number[]; // skill IDs
-    specializations: number[]; // 👈 ДОБАВИТЬ ЭТО
+    keywords: string[];
 };
 
 export type QuestionCardProps = {

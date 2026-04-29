@@ -41,25 +41,57 @@ function Main() {
         return questions.filter(q => {
 
             const matchesSearch =
-                q.title.toLowerCase().includes(search.toLowerCase());
+                q.title
+                    .toLowerCase()
+                    .includes(search.toLowerCase());
 
             const matchesSkills =
                 selectedSkills.length === 0 ||
-                selectedSkills.some(id =>
-                    q.skills?.includes(id)
-                );
+                selectedSkills.some(skillId => {
+
+                    const skill = skills.find(
+                        s => s.id === skillId
+                    );
+
+                    if (!skill) return false;
+
+                    return q.keywords?.some(keyword =>
+                        skill.title
+                            .toLowerCase()
+                            .includes(keyword.toLowerCase())
+                    );
+                });
 
             const matchesSpecializations =
                 selectedSpecializations.length === 0 ||
-                q.specializations?.some(id => selectedSpecializations.includes(id));
+                selectedSpecializations.some(specId => {
 
-            return matchesSearch && matchesSkills && matchesSpecializations;
+                    const spec = specializations.find(
+                        s => s.id === specId
+                    );
+
+                    if (!spec) return false;
+
+                    return q.keywords?.some(keyword =>
+                        spec.title
+                            .toLowerCase()
+                            .includes(keyword.toLowerCase())
+                    );
+                });
+
+            return (
+                matchesSearch &&
+                matchesSkills &&
+                matchesSpecializations
+            );
         });
     }, [
         questions,
         search,
         selectedSkills,
-        selectedSpecializations
+        selectedSpecializations,
+        skills,
+        specializations
     ]);
 
     if (isLoading) {
