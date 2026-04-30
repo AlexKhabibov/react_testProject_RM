@@ -11,11 +11,7 @@ function SpecializationFilter({
     const [showAll, setShowAll] = useState(false);
 
     const toggleSpecialization = (id: number) => {
-        setSelectedSpecializations(prev =>
-            prev.includes(id)
-                ? prev.filter(s => s !== id)
-                : [...prev, id]
-        );
+        setSelectedSpecializations(id);
     };
 
     const visibleSpecializations = showAll

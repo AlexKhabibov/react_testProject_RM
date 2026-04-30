@@ -7,15 +7,11 @@ function SkillsFilter({
     selectedSkills,
     setSelectedSkills
 }: SkillSFilterProps) {
-    
+
     const [showAll, setShowAll] = useState(false);
 
     const toggleSkill = (id: number) => {
-        setSelectedSkills(prev =>
-            prev.includes(id)
-                ? prev.filter(s => s !== id)
-                : [...prev, id]
-        );
+        setSelectedSkills(id);
     };
 
     const visibleSkills = showAll

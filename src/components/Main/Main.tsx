@@ -1,113 +1,128 @@
-import { useEffect, useMemo, useState } from "react";
-
+import { useEffect, useState } from "react";
 import QuestionsList from "./QuestionsList/QuestionsList";
 import Sidebar from "./Sidebar/Sidebar";
 import Pagination from "./Pagination/Pagination";
-
-import { getAllQuestions, getQuestions } from "../../api/questionsApi";
+import { getQuestions } from "../../api/questionsApi";
 import { getSkills } from "../../api/skillsApi";
 import { getSpecializations } from "../../api/specializationsApi";
-
+import { useDebounce } from "../../hooks/useDebounce";
 import styles from "./Main.module.css";
-
-import type { Question, Skill, Specialization } from "../../types/type";
+import type {
+    Question,
+    Skill,
+    Specialization
+} from "../../types/type";
 
 function Main() {
-    const [questions, setQuestions] = useState<Question[]>([]);
-    const [allQuestions, setAllQuestions] = useState<Question[]>([]);
 
+    // DATA
+    const [questions, setQuestions] = useState<Question[]>([]);
     const [skills, setSkills] = useState<Skill[]>([]);
     const [specializations, setSpecializations] = useState<Specialization[]>([]);
 
+    // FILTERS
     const [search, setSearch] = useState("");
+    const [selectedSkills, setSelectedSkills] = useState<number[]>([]);
+    const [selectedSpecializations, setSelectedSpecializations] = useState<number[]>([]);
 
+    // debounce search
+    const debouncedSearch = useDebounce(search.trim(), 500);
+
+    // PAGINATION
     const [page, setPage] = useState(1);
     const [limit] = useState(10);
     const [total, setTotal] = useState(0);
 
+    // Loader
     const [isLoading, setIsLoading] = useState(true);
-    const [isAllLoading, setIsAllLoading] = useState(true);
 
-    // ======================
-    // данные из апишек
-    // ======================
+    // LOAD FILTER DATA
     useEffect(() => {
+
         Promise.all([
             getSkills(),
             getSpecializations()
         ]).then(([skillsData, specData]) => {
+
             setSkills(skillsData);
             setSpecializations(specData);
+
         });
+
     }, []);
 
-    // ======================
-    // пагинация
-    // ======================
+    // LOAD QUESTIONS
     useEffect(() => {
+
         const load = async () => {
+
             setIsLoading(true);
 
-            const res = await getQuestions(page, limit);
+            try {
 
-            setQuestions(res.data);
-            setTotal(res.total);
+                const res = await getQuestions({
+                    page,
+                    limit,
+                    title: debouncedSearch,
+                    skills: selectedSkills,
+                    specializationId: selectedSpecializations[0],
+                    skillFilterMode: "ANY"
+                });
 
-            setIsLoading(false);
+                setQuestions(res.data);
+                setTotal(res.total);
+
+            } catch (e) {
+
+                console.error(e);
+
+            } finally {
+
+                setIsLoading(false);
+
+            }
         };
 
         load();
-    }, [page, limit]);
 
-    // ======================
-    // все вопросы (поиск)
-    // ======================
-    useEffect(() => {
-        const loadAll = async () => {
-            setIsAllLoading(true);
+    }, [
+        page,
+        limit,
+        debouncedSearch,
+        selectedSkills,
+        selectedSpecializations
+    ]);
 
-            const res = await getAllQuestions();
-            setAllQuestions(res);
-
-            setIsAllLoading(false);
-        };
-
-        loadAll();
-    }, []);
-
-    // ======================
-    // поиск + пагинация
-    // ======================
-    const displayedQuestions = useMemo(() => {
-        const query = search.trim().toLowerCase();
-
-        if (query && !isAllLoading) {
-            return allQuestions.filter(q => {
-                const titleMatch = q.title.toLowerCase().includes(query);
-
-                const keywordMatch =
-                    q.keywords?.some(k =>
-                        k.toLowerCase().includes(query)
-                    ) ?? false;
-
-                return titleMatch || keywordMatch;
-            });
-        }
-
-        return questions;
-    }, [search, allQuestions, questions, isAllLoading]);
-
-    // ======================
-    // search handler
-    // ======================
+    // HANDLERS
     const handleSearchChange = (value: string) => {
+
         setSearch(value);
+        setPage(1);
+
+    };
+
+    const handleToggleSkill = (id: number) => {
+
+        setSelectedSkills(prev =>
+            prev.includes(id)
+                ? prev.filter(s => s !== id)
+                : [...prev, id]
+        );
+
         setPage(1);
     };
 
-    // ======================
-    // loader
-    // ======================
+    const handleToggleSpecialization = (id: number) => {
+
+        setSelectedSpecializations(prev =>
+            prev.includes(id)
+                ? prev.filter(s => s !== id)
+                : [...prev, id]
+        );
+
+        setPage(1);
+    };
+
     if (isLoading) {
         return (
             <div className={styles.loader}>
@@ -119,27 +134,27 @@ function Main() {
     return (
         <div className={styles.layout}>
 
-            <QuestionsList questions={displayedQuestions} />
+            <QuestionsList questions={questions} />
 
             <Sidebar
                 search={search}
                 setSearch={handleSearchChange}
+
                 skills={skills}
-                selectedSkills={[]}
-                setSelectedSkills={() => {}}
+                selectedSkills={selectedSkills}
+                setSelectedSkills={handleToggleSkill}
+
                 specializations={specializations}
-                selectedSpecializations={[]}
-                setSelectedSpecializations={() => {}}
+                selectedSpecializations={selectedSpecializations}
+                setSelectedSpecializations={handleToggleSpecialization}
             />
 
-            {!search && (
-                <Pagination
-                    page={page}
-                    setPage={setPage}
-                    total={total}
-                    limit={limit}
-                />
-            )}
+            <Pagination
+                page={page}
+                setPage={setPage}
+                total={total}
+                limit={limit}
+            />
 
         </div>
     );

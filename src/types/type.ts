@@ -1,5 +1,3 @@
-import type { Dispatch, SetStateAction } from "react";
-
 // API
 export type Question = {
     id: number;
@@ -55,26 +53,26 @@ export type SkillsProps = {
 export type SidebarProps = {
     search: string;
     setSearch: (value: string) => void;
+
     skills: Skill[];
     selectedSkills: number[];
-    setSelectedSkills: React.Dispatch<React.SetStateAction<number[]>>;
+    setSelectedSkills: (id: number) => void;
+
     specializations: Specialization[];
     selectedSpecializations: number[];
-    setSelectedSpecializations: React.Dispatch<React.SetStateAction<number[]>>;
+    setSelectedSpecializations: (id: number) => void;
 };
 
 export type SpecializationFilterProps = {
     specializations: Specialization[];
     selectedSpecializations: number[];
-    setSelectedSpecializations: React.Dispatch<
-        React.SetStateAction<number[]>
-    >;
+    setSelectedSpecializations: (id: number) => void;
 };
 
 export type SkillSFilterProps = {
     skills: Skill[];
     selectedSkills: number[];
-    setSelectedSkills: Dispatch<SetStateAction<number[]>>;
+    setSelectedSkills: (id: number) => void;
 };
 
 export type PaginationProps = {
@@ -82,10 +80,4 @@ export type PaginationProps = {
     setPage: (p: number) => void;
     total: number;
     limit: number;
-};
-
-// Для связи по id (на будущее)
-export type QuestionWithRelations = Question & {
-    skillIds: number[];
-    specializationIds: number[];
 };
