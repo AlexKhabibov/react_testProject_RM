@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./SpecializationFilter.module.css";
-import type { SpecializationFilterProps } from "../../../../types/type";
+import type { SpecializationFilterProps } from "../../../types/type";
+
 
 function SpecializationFilter({
     specializations,

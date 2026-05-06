@@ -1,6 +1,6 @@
 import { useState } from "react";
-import type { SkillSFilterProps } from "../../../../types/type";
 import styles from "./SkillsFilter.module.css";
+import type { SkillSFilterProps } from "../../../types/type";
 
 function SkillsFilter({
     skills,

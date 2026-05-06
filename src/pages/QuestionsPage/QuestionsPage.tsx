@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import QuestionsList from "./QuestionsList/QuestionsList";
-import Sidebar from "./Sidebar/Sidebar";
-import Pagination from "./Pagination/Pagination";
 import { getQuestions } from "../../api/questionsApi";
 import { getSkills } from "../../api/skillsApi";
 import { getSpecializations } from "../../api/specializationsApi";
 import { useDebounce } from "../../hooks/useDebounce";
-import styles from "./Main.module.css";
+import styles from "./QuestionsPage.module.css";
 import type {
     Question,
     Skill,
     Specialization
 } from "../../types/type";
+import QuestionsList from "../../components/QuestionsList/QuestionsList";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import Pagination from "../../components/Pagination/Pagination";
 
-function Main() {
+function QuestionsPage() {
 
     // DATA
     const [questions, setQuestions] = useState<Question[]>([]);
@@ -160,4 +160,4 @@ function Main() {
     );
 }
 
-export default Main;
+export default QuestionsPage;
