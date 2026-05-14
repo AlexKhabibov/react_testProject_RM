@@ -12,7 +12,7 @@ export const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             { index: true, element: <QuestionsListPage /> },
-            { path: '', element: <QuestionDetailsPage /> },
+            { path: 'questions/:id', element: <QuestionDetailsPage /> },
         ]
     },
     {

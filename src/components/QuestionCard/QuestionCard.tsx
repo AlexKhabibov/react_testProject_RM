@@ -2,6 +2,7 @@ import { useState } from "react";
 import DOMPurify from "dompurify";
 import styles from "./QuestionCard.module.css";
 import type { QuestionCardProps } from "../../types/type";
+import { Link } from "react-router-dom";
 
 function QuestionCard({ question }: QuestionCardProps) {
     const [isOpen, setIsOpen] = useState(false);
@@ -9,18 +10,19 @@ function QuestionCard({ question }: QuestionCardProps) {
     return (
         <div className={styles.card}>
 
-            <button
-                className={styles.header}
-                onClick={() => setIsOpen(!isOpen)}
-            >
-                <h3 className={styles.title}>
-                    {question.title}
-                </h3>
 
-                <span>
+            <div className={styles.titleContainer}>
+                <Link className={styles.linkReset} to={`/questions/${question.id}`}>
+                    <h3 className={styles.title}>
+                        {question.title}
+                    </h3>
+                </Link>
+
+                <span className={styles.accordeonAarrow} onClick={() => setIsOpen(!isOpen)}>
                     {isOpen ? "▲" : "▼"}
                 </span>
-            </button>
+            </div>
+
 
             {isOpen && (
                 <div className={styles.answer}>
