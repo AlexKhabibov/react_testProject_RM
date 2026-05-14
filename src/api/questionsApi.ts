@@ -4,13 +4,9 @@ import { BASE_URL } from "./baseApi";
 type GetQuestionsParams = {
     page: number;
     limit: number;
-
     title?: string;
-
     skills?: number[];
-
     specializationId?: number;
-
     skillFilterMode?: "ALL" | "ANY";
 };
 
