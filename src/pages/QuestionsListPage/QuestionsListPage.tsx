@@ -3,7 +3,7 @@ import { getQuestions } from "../../api/questionsApi";
 import { getSkills } from "../../api/skillsApi";
 import { getSpecializations } from "../../api/specializationsApi";
 import { useDebounce } from "../../hooks/useDebounce";
-import styles from "./QuestionsPage.module.css";
+import styles from "./QuestionsListPage.module.css";
 import type {
     Question,
     Skill,
@@ -13,7 +13,7 @@ import QuestionsList from "../../components/QuestionsList/QuestionsList";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Pagination from "../../components/Pagination/Pagination";
 
-function QuestionsPage() {
+function QuestionsListPage() {
 
     // DATA
     const [questions, setQuestions] = useState<Question[]>([]);
@@ -160,4 +160,4 @@ function QuestionsPage() {
     );
 }
 
-export default QuestionsPage;
+export default QuestionsListPage;

@@ -1,16 +1,14 @@
-import Footer from './components/Footer/Footer'
-import Header from './components/Header/Header'
-import QuestionsPage from './pages/QuestionsPage/QuestionsPage'
+
+import { RouterProvider } from 'react-router-dom'
 import './styles/global.css'
+import { router } from './router/router'
 
 function App() {
 
   return (
-    <div>
-      <Header />
-      <QuestionsPage />
-      <Footer />
-    </div>
+    <>
+      <RouterProvider router={router} />
+    </>
   )
 }
 
