@@ -1,115 +1,94 @@
 .container {
-    padding: 40px 34px 28px;
-    background: #f3f3f3;
-    border-radius: 36px;
-    max-width: 1200px;
-    box-sizing: border-box;
-    position: relative;
+    padding: 32px;
+
+    background: #f5f5f5;
+
+    border-radius: 28px;
 }
 
 .title {
-    margin: 0;
-    font-size: 52px;
-    line-height: 1.1;
+    margin: 0 0 28px;
+
+    font-size: 36px;
     font-weight: 500;
-    letter-spacing: -0.03em;
+    line-height: 1.1;
+
     color: #2d2d2d;
 }
 
 .content {
-    margin-top: 38px;
     position: relative;
-    max-height: 860px;
+
     overflow: hidden;
+
+    transition: max-height 0.3s ease;
 }
 
-.content::after {
+.collapsed {
+    max-height: 340px;
+}
+
+.expanded {
+    max-height: 5000px;
+}
+
+.collapsed::after {
     content: '';
+
     position: absolute;
+
     left: 0;
     right: 0;
     bottom: 0;
-    height: 180px;
+
+    height: 120px;
+
     background: linear-gradient(to bottom,
-            rgba(243, 243, 243, 0) 0%,
-            rgba(243, 243, 243, 0.92) 60%,
-            #f3f3f3 100%);
-    pointer-events: none;
+            rgba(245, 245, 245, 0),
+            #f5f5f5);
 }
 
 .text {
-    margin: 0;
-    font-size: 28px;
-    line-height: 1.32;
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    color: #363636;
-    white-space: pre-line;
+    font-size: 20px;
+    line-height: 1.75;
+
+    color: #3d3d3d;
 }
 
-.noContent {
-    color: #888;
-    font-style: italic;
-    text-align: center;
-    padding: 20px;
+.text p {
+    margin-top: 0;
+    margin-bottom: 24px;
 }
 
 .toggle {
-    position: relative;
-    z-index: 2;
-    margin-top: 20px;
+    margin-top: 24px;
+
+    width: 100%;
+
+    border: none;
+    background: transparent;
+
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    width: 100%;
-    border: none;
-    background: transparent;
-    font-size: 24px;
-    line-height: 1;
-    font-weight: 400;
-    color: #2d2d2d;
+
+    font-size: 18px;
+    font-weight: 500;
+
+    color: #7c4dff;
+
     cursor: pointer;
 }
 
 .toggleIcon {
-    width: 18px;
-    height: 18px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: #6b2cff;
-    transform: translateY(1px);
-    transition: transform 0.3s ease;
+    transition: transform 0.25s ease;
 }
 
 .rotated {
     transform: rotate(180deg);
 }
 
-.collapsed {
-    max-height: 200px;
-    /* начальная высота — показываем часть текста */
-    overflow: hidden;
-    position: relative;
-}
-
-.collapsed::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 180px;
-    background: linear-gradient(to bottom,
-            rgba(243, 243, 243, 0) 0%,
-            rgba(243, 243, 243, 0.92) 60%,
-            #f3f3f3 100%);
-    pointer-events: none;
-}
-
-.expanded {
-    max-height: none;
-    /* снимаем ограничение высоты */
-    overflow: visible;
+.noContent {
+    color: #888;
 }

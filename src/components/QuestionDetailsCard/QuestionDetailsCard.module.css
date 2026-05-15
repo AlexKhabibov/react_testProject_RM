@@ -1,115 +1,153 @@
-.question-details-card {
+.cardWrapper {
     display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.backButton {
+    width: fit-content;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    border: none;
+    background: transparent;
+
+    padding: 0;
+
+    font-size: 18px;
+    font-weight: 500;
+
+    color: #7c4dff;
+
+    cursor: pointer;
+}
+
+.card {
+    display: flex;
+    align-items: flex-start;
     gap: 32px;
 
-    padding: 36px;
+    padding: 20px;
 
-    background: #f3f3f3;
-    border-radius: 36px;
+    background: #f5f5f5;
 
-    max-width: 1200px;
-
-    box-sizing: border-box;
+    border-radius: 28px;
 }
 
-.question-details-card__image {
+.imageWrapper {
+    width: 128px;
+    height: 128px;
+
     flex-shrink: 0;
 
-    width: 232px;
-    height: 232px;
+    border-radius: 20px;
 
-    border-radius: 24px;
     overflow: hidden;
 
-    background: #e7e7e7;
+    background: #e8e8e8;
 }
 
-.question-details-card__image img {
+.image {
     width: 100%;
     height: 100%;
 
     object-fit: cover;
+
     display: block;
 }
 
-.question-details-card__content {
+.placeholder {
+    width: 100%;
+    height: 100%;
+
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
 
-    min-width: 0;
+    font-size: 14px;
+
+    color: #888;
 }
 
-.question-details-card__title {
+.content {
+    flex: 1;
+
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.title {
     margin: 0;
 
-    font-size: 56px;
+    font-size: 44px;
     line-height: 1.05;
     font-weight: 500;
-    letter-spacing: -0.03em;
 
     color: #2d2d2d;
 }
 
-.question-details-card__description {
-    margin: 24px 0 0;
+.description {
+    margin: 0;
 
-    font-size: 28px;
-    line-height: 1.3;
-    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.45;
 
-    color: #5f5f5f;
+    color: #5c5c5c;
 }
 
-/* Кнопка «Назад» (в верхнем углу) */
-.backButton {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 8px;
-    background-color: #6b2cff;
-    color: white;
+.category,
+.difficulty,
+.tags {
     font-size: 16px;
-    cursor: pointer;
-    z-index: 10;
+    line-height: 1.4;
+
+    color: #666;
 }
 
-.backButton:hover {
-    background-color: #5a1fff;
-}
-
-/* Контейнер для кнопок «Предыдущий»/«Следующий» */
 .navigation {
     display: flex;
+    align-items: center;
     justify-content: center;
-    gap: 16px;
-    margin-top: 20px;
+    gap: 32px;
+
+    padding: 24px;
+
+    background: #f5f5f5;
+
+    border-radius: 28px;
 }
 
-/* Стили для кнопок «Предыдущий» и «Следующий» */
-.prevButton, .nextButton {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    background-color: #6b2cff;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.prevButton:hover, .nextButton:hover {
-    background-color: #5a1fff;
-}
-
-.prevButton {
-    margin-right: auto;
-    /* Прижимает к левому краю */
-}
-
+.prevButton,
 .nextButton {
-    margin-left: auto;
-    /* Прижимает к правому краю */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    border: none;
+    background: transparent;
+
+    font-size: 22px;
+    font-weight: 500;
+
+    color: #2d2d2d;
+
+    cursor: pointer;
+
+    transition: opacity 0.2s ease;
+}
+
+.prevButton:hover,
+.nextButton:hover {
+    opacity: 0.6;
+}
+
+.prevButton:disabled,
+.nextButton:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }

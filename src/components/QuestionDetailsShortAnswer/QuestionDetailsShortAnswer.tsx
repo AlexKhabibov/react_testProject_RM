@@ -6,6 +6,7 @@ import type { Question } from "../../types/type";
 function QuestionDetailsShortAnswer() {
     const question = useLoaderData() as Question;
 
+    console.log(question);
     // Безопасное получение shortAnswer с fallback‑значением
     let shortAnswer: string;
 

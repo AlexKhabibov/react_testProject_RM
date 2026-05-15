@@ -5,13 +5,16 @@ export type Question = {
     description?: string;
     imageUrl?: string;
     category?: string;
-    difficulty?: string; // оставьте, если используется
-    complexity?: string;  // новое поле
+    difficulty?: string;
+    complexity?: string;
     tags?: string[];
-    rate?: number;         // новое поле (например, рейтинг)
-    longAnswer?: string;   // новое поле (развёрнутый ответ)
-    previousId?: number; // ID предыдущего вопроса
-    nextId?: number;     // ID следующего вопроса
+    rate?: number;
+    longAnswer?: string;
+};
+
+export type QuestionWithNavigation = Question & {
+    previousQuestionId: number | null;
+    nextQuestionId: number | null;
 };
 
 export type Skill = {
@@ -50,7 +53,6 @@ export type GetQuestionsResponse = {
     limit: number;
     total: number;
 };
-
 
 // Props
 export type QuestionCardProps = {

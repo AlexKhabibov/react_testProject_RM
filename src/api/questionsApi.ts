@@ -1,8 +1,15 @@
 import type { LoaderFunctionArgs } from "react-router-dom";
-import type { GetQuestionsParams, GetQuestionsResponse, Question } from "../types/type";
+
+import type {
+    GetQuestionsParams,
+    GetQuestionsResponse,
+    Question,
+    QuestionWithNavigation
+} from "../types/type";
+
 import { BASE_URL } from "./baseApi";
 
-// списко всех вопросов
+// список всех вопросов
 export const getQuestions = async ({
     page,
     limit,
@@ -52,8 +59,13 @@ export const getQuestions = async ({
 };
 
 // получаем вопрос по id
-export const getQuestionById = async (id: number | string): Promise<Question> => {
-    const response = await fetch(`${BASE_URL}/questions/public-questions/${id}`);
+export const getQuestionById = async (
+    id: number | string
+): Promise<Question> => {
+
+    const response = await fetch(
+        `${BASE_URL}/questions/public-questions/${id}`
+    );
 
     if (!response.ok) {
         throw new Error(`HTTP ошибка! Код: ${response.status}`);
@@ -63,21 +75,56 @@ export const getQuestionById = async (id: number | string): Promise<Question> =>
 };
 
 // loader для router
-// loaders/questionDetailsLoader.ts
 export const questionDetailsLoader = async ({
     params
-}: LoaderFunctionArgs): Promise<Question> => {
+}: LoaderFunctionArgs): Promise<QuestionWithNavigation> => {
+
     const { id } = params;
 
     if (!id) {
-        throw new Error("ID вопроса не указан в параметрах маршрута");
+        throw new Error("ID вопроса не указан");
     }
 
     try {
+
+        // текущий вопрос
         const question = await getQuestionById(id);
-        return question;
+
+        // только текущая страница вопросов
+        const questionsResponse = await getQuestions({
+            page: 1,
+            limit: 100
+        });
+
+        const questions = questionsResponse.data ?? [];
+
+        const currentIndex = questions.findIndex(
+            q => q.id === question.id
+        );
+
+        return {
+            ...question,
+
+            previousQuestionId:
+                currentIndex > 0
+                    ? questions[currentIndex - 1].id
+                    : null,
+
+            nextQuestionId:
+                currentIndex < questions.length - 1
+                    ? questions[currentIndex + 1].id
+                    : null,
+        };
+
     } catch (error) {
-        console.error("Ошибка загрузки вопроса:", error);
-        throw error;
+
+        console.error(error);
+
+        return {
+            id: 0,
+            title: "Ошибка",
+            previousQuestionId: null,
+            nextQuestionId: null,
+        };
     }
 };

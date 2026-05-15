@@ -2,13 +2,15 @@ import QuestionDetailsCard from "../../components/QuestionDetailsCard/QuestionDe
 import QuestionDetailsLongAnswer from "../../components/QuestionDetailsLongAnswer/QuestionDetailsLongAnswer";
 import QuestionDetailsShortAnswer from "../../components/QuestionDetailsShortAnswer/QuestionDetailsShortAnswer";
 
+import styles from './QuestionDetailsPage.module.css';
+
 function QuestionDetailsPage() {
     return (
-        <>
+        <div className={styles.page}>
             <QuestionDetailsCard />
             <QuestionDetailsShortAnswer />
             <QuestionDetailsLongAnswer />
-        </>
+        </div>
     );
 }
 
