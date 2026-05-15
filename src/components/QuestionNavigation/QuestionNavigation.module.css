@@ -1,0 +1,31 @@
+.navigation {
+    display: flex;
+    gap: 16px;
+    margin: 20px 0;
+    justify-content: center;
+}
+
+.prevButton, .nextButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #6b2cff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.prevButton:hover, .nextButton:hover {
+    background-color: #5a1fff;
+}
+
+.prevButton {
+    margin-right: auto;
+    /* Прижимает к левому краю */
+}
+
+.nextButton {
+    margin-left: auto;
+    /* Прижимает к правому краю */
+}

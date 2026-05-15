@@ -60,3 +60,56 @@
 
     color: #5f5f5f;
 }
+
+/* Кнопка «Назад» (в верхнем углу) */
+.backButton {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #6b2cff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.backButton:hover {
+    background-color: #5a1fff;
+}
+
+/* Контейнер для кнопок «Предыдущий»/«Следующий» */
+.navigation {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+/* Стили для кнопок «Предыдущий» и «Следующий» */
+.prevButton, .nextButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #6b2cff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.prevButton:hover, .nextButton:hover {
+    background-color: #5a1fff;
+}
+
+.prevButton {
+    margin-right: auto;
+    /* Прижимает к левому краю */
+}
+
+.nextButton {
+    margin-left: auto;
+    /* Прижимает к правому краю */
+}

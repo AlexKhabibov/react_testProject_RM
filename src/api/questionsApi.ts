@@ -1,22 +1,8 @@
-import type { Question } from "../types/type";
+import type { LoaderFunctionArgs } from "react-router-dom";
+import type { GetQuestionsParams, GetQuestionsResponse, Question } from "../types/type";
 import { BASE_URL } from "./baseApi";
 
-type GetQuestionsParams = {
-    page: number;
-    limit: number;
-    title?: string;
-    skills?: number[];
-    specializationId?: number;
-    skillFilterMode?: "ALL" | "ANY";
-};
-
-type GetQuestionsResponse = {
-    data: Question[];
-    page: number;
-    limit: number;
-    total: number;
-};
-
+// списко всех вопросов
 export const getQuestions = async ({
     page,
     limit,
@@ -31,28 +17,28 @@ export const getQuestions = async ({
     params.append("page", String(page));
     params.append("limit", String(limit));
 
-    // 🔍 поиск
+    // поиск
     if (title.trim()) {
         params.append("title", title.trim());
     }
 
-    // 🛠 skills
+    // skills
     skills.forEach(skillId => {
         params.append("skills", String(skillId));
     });
 
-    // 🧠 режим фильтрации
+    // режим фильтрации
     if (skills.length) {
         params.append("skillFilterMode", skillFilterMode);
     }
 
-    // 🎯 specialization
+    // specialization
     if (specializationId !== undefined) {
-    params.append(
-        "specializationId",
-        String(specializationId)
-    );
-}
+        params.append(
+            "specializationId",
+            String(specializationId)
+        );
+    }
 
     const response = await fetch(
         `${BASE_URL}/questions/public-questions?${params.toString()}`
@@ -63,4 +49,35 @@ export const getQuestions = async ({
     }
 
     return response.json();
+};
+
+// получаем вопрос по id
+export const getQuestionById = async (id: number | string): Promise<Question> => {
+    const response = await fetch(`${BASE_URL}/questions/public-questions/${id}`);
+
+    if (!response.ok) {
+        throw new Error(`HTTP ошибка! Код: ${response.status}`);
+    }
+
+    return response.json();
+};
+
+// loader для router
+// loaders/questionDetailsLoader.ts
+export const questionDetailsLoader = async ({
+    params
+}: LoaderFunctionArgs): Promise<Question> => {
+    const { id } = params;
+
+    if (!id) {
+        throw new Error("ID вопроса не указан в параметрах маршрута");
+    }
+
+    try {
+        const question = await getQuestionById(id);
+        return question;
+    } catch (error) {
+        console.error("Ошибка загрузки вопроса:", error);
+        throw error;
+    }
 };

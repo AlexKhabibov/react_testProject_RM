@@ -1,27 +1,41 @@
-import styles from './QuestionDetailsShortAnswer.module.css'
+import { useLoaderData } from "react-router-dom";
+import styles from './QuestionDetailsShortAnswer.module.css';
+import type { Question } from "../../types/type";
+
 
 function QuestionDetailsShortAnswer() {
-    return (
-        <>
-            <div className={styles.card}>
-                <h2 className={styles.title}>
-                    Краткий ответ
-                </h2>
+    const question = useLoaderData() as Question;
 
+    // Безопасное получение shortAnswer с fallback‑значением
+    let shortAnswer: string;
+
+    if (question.description) {
+        shortAnswer = question.description;
+    } else if (question.longAnswer) {
+        const words = question.longAnswer.split(' ');
+        shortAnswer = words.slice(0, 50).join(' ') + '...';
+    } else {
+        shortAnswer = "Краткий ответ отсутствует";
+    }
+
+    const hasContent = !!shortAnswer.trim();
+
+    return (
+        <div className={styles.card}>
+            <h2 className={styles.title}>
+                Краткий ответ
+            </h2>
+
+            {hasContent ? (
                 <p className={styles.text}>
-                    Virtual DOM (виртуальный DOM) — это программная концепция,
-                    используемая в разработке веб-приложений для повышения
-                    эффективности обновлений интерфейса. Это представление
-                    реального DOM (структуры документа, отображаемого в браузере)
-                    в памяти, которое позволяет оптимизировать изменения,
-                    минимизируя взаимодействие с реальным DOM, что ускоряет
-                    рендеринг и обновление страниц. При изменении данных
-                    приложения Virtual DOM сравнивает новое состояние с
-                    предыдущим и обновляет только те части реального DOM,
-                    которые изменились, вместо перерисовки всего документа.
+                    {shortAnswer}
                 </p>
-            </div>
-        </>
+            ) : (
+                <p className={styles.noContent}>
+                    Краткий ответ отсутствует
+                </p>
+            )}
+        </div>
     );
 }
 

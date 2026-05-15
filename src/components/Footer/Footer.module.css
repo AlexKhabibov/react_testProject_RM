@@ -1,7 +1,7 @@
 .footer {
     background: #17003d;
     color: white;
-    border-radius: 20px;
+    border-radius: 20px 20px 0px 0px;
 }
 
 .container {

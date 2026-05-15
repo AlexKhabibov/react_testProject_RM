@@ -1,15 +1,16 @@
 import styles from './Header.module.css';
+import { Link } from 'react-router-dom';
 
 function Header() {
     return (
         <header className={styles.header}>
             <div className={`${styles.header__inner}`}>
                 <nav className={styles.header__nav}>
-                    <a className={styles.header__logo}>Yeahub</a>
-                    <a className={styles.header__link}>База вопросов</a>
-                    <a className={styles.header__link}>Тренажер</a>
-                    <a className={styles.header__link}>Материалы</a>
-                    <a className={styles.header__link}>Навыки (hh)</a>
+                    <Link to={''} className={styles.header__logo}>Yeahub</Link>
+                    <Link to={'/'} className={styles.header__link}>База вопросов</Link>
+                    <Link to={''} className={styles.header__link}>Тренажер</Link>
+                    <Link to={''} className={styles.header__link}>Материалы</Link>
+                    <Link to={''} className={styles.header__link}>Навыки (hh)</Link>
                 </nav>
                 <div className={styles.header__actions}>
                     <button className={`${styles.btn} ${styles['btn--ghost']}`}>Вход</button>

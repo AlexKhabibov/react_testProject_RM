@@ -2,10 +2,16 @@
 export type Question = {
     id: number;
     title: string;
-    rate: number;
-    complexity: number;
-    longAnswer: string;
-    keywords: string[];
+    description?: string;
+    imageUrl?: string;
+    category?: string;
+    difficulty?: string; // оставьте, если используется
+    complexity?: string;  // новое поле
+    tags?: string[];
+    rate?: number;         // новое поле (например, рейтинг)
+    longAnswer?: string;   // новое поле (развёрнутый ответ)
+    previousId?: number; // ID предыдущего вопроса
+    nextId?: number;     // ID следующего вопроса
 };
 
 export type Skill = {
@@ -27,6 +33,22 @@ export type Specialization = {
     imageSrc: string | null;
     createdAt: string;
     updatedAt: string;
+};
+
+export type GetQuestionsParams = {
+    page: number;
+    limit: number;
+    title?: string;
+    skills?: number[];
+    specializationId?: number;
+    skillFilterMode?: "ALL" | "ANY";
+};
+
+export type GetQuestionsResponse = {
+    data: Question[];
+    page: number;
+    limit: number;
+    total: number;
 };
 
 
@@ -81,3 +103,8 @@ export type PaginationProps = {
     total: number;
     limit: number;
 };
+
+export type NavigationQuestion = {
+    id: number;
+    title: string;
+}

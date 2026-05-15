@@ -34,7 +34,6 @@
             rgba(243, 243, 243, 0) 0%,
             rgba(243, 243, 243, 0.92) 60%,
             #f3f3f3 100%);
-
     pointer-events: none;
 }
 
@@ -46,6 +45,13 @@
     letter-spacing: -0.02em;
     color: #363636;
     white-space: pre-line;
+}
+
+.noContent {
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
 }
 
 .toggle {
@@ -74,4 +80,36 @@
     justify-content: center;
     color: #6b2cff;
     transform: translateY(1px);
+    transition: transform 0.3s ease;
+}
+
+.rotated {
+    transform: rotate(180deg);
+}
+
+.collapsed {
+    max-height: 200px;
+    /* начальная высота — показываем часть текста */
+    overflow: hidden;
+    position: relative;
+}
+
+.collapsed::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 180px;
+    background: linear-gradient(to bottom,
+            rgba(243, 243, 243, 0) 0%,
+            rgba(243, 243, 243, 0.92) 60%,
+            #f3f3f3 100%);
+    pointer-events: none;
+}
+
+.expanded {
+    max-height: none;
+    /* снимаем ограничение высоты */
+    overflow: visible;
 }

@@ -48,7 +48,7 @@ function QuestionCard({ question }: QuestionCardProps) {
                     <div
                         className={styles.content}
                         dangerouslySetInnerHTML={{
-                            __html: DOMPurify.sanitize(question.longAnswer)
+                            __html: DOMPurify.sanitize(question.longAnswer ?? "")
                         }}
                     />
 
