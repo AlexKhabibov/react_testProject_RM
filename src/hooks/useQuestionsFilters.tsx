@@ -1,4 +1,3 @@
-// hooks/useQuestionsFilters.ts
 import { useState } from "react";
 
 export function useQuestionsFilters() {

@@ -1,4 +1,3 @@
-// hooks/useFiltersData.ts
 import { useEffect, useState } from "react";
 import { getSkills } from "../api/skillsApi";
 import { getSpecializations } from "../api/specializationsApi";

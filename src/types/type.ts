@@ -54,6 +54,11 @@ export type GetQuestionsResponse = {
     total: number;
 };
 
+export type NavigationQuestion = {
+    id: number;
+    title: string;
+}
+
 // Props
 export type QuestionCardProps = {
     question: Question
@@ -105,8 +110,3 @@ export type PaginationProps = {
     total: number;
     limit: number;
 };
-
-export type NavigationQuestion = {
-    id: number;
-    title: string;
-}

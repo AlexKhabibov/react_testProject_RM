@@ -1,4 +1,3 @@
-// hooks/useQuestions.ts
 import { useEffect, useState } from "react";
 import { getQuestions } from "../api/questionsApi";
 import type { Question } from "../types/type";
