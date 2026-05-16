@@ -1,11 +1,35 @@
-.container {
+.page {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 32px 24px 80px;
-     /* padding: 20px; */
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1fr) 320px;
+
+    gap: 24px;
+    align-items: start;
+    box-sizing: border-box;
+}
+
+.main {
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    box-sizing: border-box;
+}
+
+.sidebar {
+    top: 24px;
+}
+
+@media (max-width: 1100px) {
+
+    .page {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: static;
+    }
 }

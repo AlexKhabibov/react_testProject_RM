@@ -1,4 +1,13 @@
 // API
+export type QuestionSkill = {
+    id: number;
+    title: string;
+};
+
+export type QuestionAuthor = {
+    username: string;
+};
+
 export type Question = {
     id: number;
     title: string;
@@ -10,6 +19,9 @@ export type Question = {
     tags?: string[];
     rate?: number;
     longAnswer?: string;
+    keywords?: string[];
+    questionSkills?: QuestionSkill[];
+    createdBy?: QuestionAuthor;
 };
 
 export type QuestionWithNavigation = Question & {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./QuestionsListPage.module.css";
 import QuestionsList from "../../components/QuestionsList/QuestionsList";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import Sidebar from "../../components/QuestionsListSidebar/QuestionsListSidebar";
 import Pagination from "../../components/Pagination/Pagination";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useQuestions } from "../../hooks/useQuestions";

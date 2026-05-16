@@ -1,4 +1,4 @@
-import styles from "./Sidebar.module.css";
+import styles from "./QuestionsListSidebar.module.css";
 import SearchQuestions from "./SearchQuestions/SearchQuestions";
 import SpecializationFilter from "./SpecializationFilter/SpecializationFilter";
 import SkillsFilter from "./SkillsFilter/SkillsFilter";
