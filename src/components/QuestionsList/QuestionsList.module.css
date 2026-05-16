@@ -1,7 +1,9 @@
-.list {
+.container {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 24px;
+    background: white;
+    border-radius: 20px;
 }
 
 .loader {

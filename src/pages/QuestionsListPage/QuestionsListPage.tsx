@@ -132,31 +132,31 @@ function QuestionsListPage() {
     }
 
     return (
-        <div className={styles.layout}>
+        <div className={styles.container}>
 
-            <QuestionsList questions={questions} />
+                <QuestionsList questions={questions} />
 
-            <Sidebar
-                search={search}
-                setSearch={handleSearchChange}
+                <Sidebar
+                    search={search}
+                    setSearch={handleSearchChange}
 
-                skills={skills}
-                selectedSkills={selectedSkills}
-                setSelectedSkills={handleToggleSkill}
+                    skills={skills}
+                    selectedSkills={selectedSkills}
+                    setSelectedSkills={handleToggleSkill}
 
-                specializations={specializations}
-                selectedSpecializations={selectedSpecializations}
-                setSelectedSpecializations={handleToggleSpecialization}
-            />
+                    specializations={specializations}
+                    selectedSpecializations={selectedSpecializations}
+                    setSelectedSpecializations={handleToggleSpecialization}
+                />
 
-            <Pagination
-                page={page}
-                setPage={setPage}
-                total={total}
-                limit={limit}
-            />
+                <Pagination
+                    page={page}
+                    setPage={setPage}
+                    total={total}
+                    limit={limit}
+                />
+            </div>
 
-        </div>
     );
 }
 

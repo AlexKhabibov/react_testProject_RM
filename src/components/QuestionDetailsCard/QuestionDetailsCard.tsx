@@ -1,7 +1,6 @@
 import {
     useLoaderData,
-    useNavigation,
-    useNavigate
+    useNavigation
 } from "react-router-dom";
 
 import type {
@@ -17,8 +16,6 @@ function QuestionDetailsCard() {
     const navigation = useNavigation();
 
     const isLoading = navigation.state === 'loading';
-
-    const navigate = useNavigate();
 
     // loader
     if (isLoading) {
@@ -41,13 +38,6 @@ function QuestionDetailsCard() {
 
     return (
         <div className={styles.cardWrapper}>
-
-            <button
-                className={styles.backButton}
-                onClick={() => navigate('/')}
-            >
-                ← Назад
-            </button>
 
             <div className={styles.card}>
 
@@ -96,39 +86,9 @@ function QuestionDetailsCard() {
                     )}
 
                 </div>
-            </div>
-
-            <div className={styles.navigation}>
-
-                <button
-                    className={styles.prevButton}
-                    disabled={!question.previousQuestionId}
-                    onClick={() => {
-                        if (question.previousQuestionId) {
-                            navigate(
-                                `/questions/${question.previousQuestionId}`
-                            );
-                        }
-                    }}
-                >
-                    ← Предыдущий
-                </button>
-
-                <button
-                    className={styles.nextButton}
-                    disabled={!question.nextQuestionId}
-                    onClick={() => {
-                        if (question.nextQuestionId) {
-                            navigate(
-                                `/questions/${question.nextQuestionId}`
-                            );
-                        }
-                    }}
-                >
-                    Следующий →
-                </button>
 
             </div>
+
         </div>
     );
 }

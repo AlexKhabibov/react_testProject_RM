@@ -5,10 +5,10 @@
 }
 
 .title {
-    margin: 0;
-    font-size: 15px;
-    font-weight: 600;
-    color: #111827;
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #474747;
 }
 
 .tags {

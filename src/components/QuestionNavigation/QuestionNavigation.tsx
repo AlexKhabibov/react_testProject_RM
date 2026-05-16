@@ -1,35 +1,49 @@
-import { useNavigate } from "react-router-dom";
-import styles from './QuestionNavigation.module.css';
-import type { NavigationQuestion } from "../../types/type";
+// import { useLoaderData, useNavigate } from "react-router-dom";
 
-function QuestionNavigation({ previousQuestion, nextQuestion }: {
-    previousQuestion?: NavigationQuestion;
-    nextQuestion?: NavigationQuestion;
-}) {
+import { useLoaderData, useNavigate } from "react-router-dom";
+import type {
+    QuestionWithNavigation
+} from "../../types/type";
+
+import styles from './QuestionNavigation.module.css';
+
+function QuestionNavigation() {
+
+    const question = useLoaderData() as QuestionWithNavigation;
+
     const navigate = useNavigate();
 
-    const handleNavigate = (questionId: number) => {
-        navigate(`/questions/${questionId}`);
-    };
-
     return (
-        <div className={styles.navigation}>
-            {previousQuestion && (
-                <button
-                    className={styles.prevButton}
-                    onClick={() => handleNavigate(previousQuestion.id)}
-                >
-                    <span>← Предыдущий</span>
-                </button>
-            )}
-            {nextQuestion && (
-                <button
-                    className={styles.nextButton}
-                    onClick={() => handleNavigate(nextQuestion.id)}
-                >
-                    <span>Следующий →</span>
-                </button>
-            )}
+        <div className={styles.navigationWrapper}>
+
+            <button
+                className={styles.prevButton}
+                disabled={!question.previousQuestionId}
+                onClick={() => {
+                    if (question.previousQuestionId) {
+                        navigate(
+                            `/questions/${question.previousQuestionId}`
+                        );
+                    }
+                }}
+            >
+                ← Предыдущий
+            </button>
+
+            <button
+                className={styles.nextButton}
+                disabled={!question.nextQuestionId}
+                onClick={() => {
+                    if (question.nextQuestionId) {
+                        navigate(
+                            `/questions/${question.nextQuestionId}`
+                        );
+                    }
+                }}
+            >
+                Следующий →
+            </button>
+
         </div>
     );
 }

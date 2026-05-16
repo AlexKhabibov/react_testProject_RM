@@ -6,9 +6,10 @@
 
 .title {
     margin: 0;
-    font-size: 15px;
-    font-weight: 600;
-    color: #111827;
+    font-size: 14px;
+    font-weight: 400;
+    color: #474747;
+    margin-left: 10px;
 }
 
 .tags {
@@ -19,17 +20,12 @@
 
 .tags button {
     padding: 8px 12px;
-
     border: 1px solid #e5e7eb;
     border-radius: 999px;
-
     background: #ffffff;
-
     font-size: 13px;
     color: #111827;
-
     cursor: pointer;
-
     transition: 0.2s ease;
 }
 

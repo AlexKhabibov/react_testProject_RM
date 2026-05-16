@@ -5,7 +5,7 @@ import styles from "./QuestionsList.module.css";
 
 function QuestionsList({ questions }: QuestionCardListProps) {
     return (
-        <div className={styles.list}>
+        <div className={styles.container}>
             {questions.map(q => (
                 <QuestionCard
                     key={q.id}

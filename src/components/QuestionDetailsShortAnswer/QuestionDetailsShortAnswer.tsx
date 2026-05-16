@@ -22,7 +22,7 @@ function QuestionDetailsShortAnswer() {
     const hasContent = !!shortAnswer.trim();
 
     return (
-        <div className={styles.card}>
+        <div className={styles.container}>
             <h2 className={styles.title}>
                 Краткий ответ
             </h2>
